@@ -1,30 +1,26 @@
-import Vue from 'vue';
-import App from './App.vue';
-import VueRouter from 'vue-router';
-import Home from './components/Home.vue';
-import Menu from './components/Menu.vue';
-import Admin from './components/Admin.vue';
-import About from './components/about/About';
-import Login from './components/Login';
-import Register from './components/Register';
+import Vue from 'vue'
+import App from './App.vue'
+import VueRouter from 'vue-router'
+import {routes} from './routes'
+import axios from 'axios'
 
 Vue.use(VueRouter)
 
-//配置routes，路由的路径
-const routes = [                
-  {path:'/',name:'homeLink',component:Home},
-  {path:'/menu',name:'menuLink',component:Menu},
-  {path:'/admin',name:'adminLink',component:Admin},
-  {path:'/about',name:'aboutLink',component:About},
-  {path:'/login',name:'loginLink',component:Login},
-  {path:'/register',name:'registerLink',component:Register},
-  {path:'*',redirect:'/'},      
-
-]
+//配置axios的全局默认路径
+axios.defaults.baseURL = 'https://wd7068517581xtlbvg.wilddogio.com/';
 
 const router = new VueRouter({
   routes,
-  mode:"history"
+  mode:"history",
+  scrollBehavior(to,from,savedPosition){
+    // return {x:0,y:100}
+    // return {selector : '.btn'}
+    if(savedPosition){
+      return savedPosition
+    }else{
+      return{x:0,y:0}
+    }
+  }
 });
 
 new Vue({
