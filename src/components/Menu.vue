@@ -68,55 +68,14 @@
 </template>
 
 <script>
+// import axios from 'axios';
+
 export default {
   data() {
     return {
       baskets: [],
       basketText:'购物车暂无商品',
-      getMenuItems: {
-        1: {
-          name: "榴莲pizza",
-          description: "这是喜欢吃榴莲朋友的最佳选择",
-          options: [
-            {
-              size: 9,
-              price: 38
-            },
-            {
-              size: 12,
-              price: 48
-            }
-          ]
-        },
-        2: {
-          name: "芝士pizza",
-          description: "芝士杀手,浓浓的芝士丝, 食欲瞬间爆棚",
-          options: [
-            {
-              size: 9,
-              price: 38
-            },
-            {
-              size: 12,
-              price: 48
-            }
-          ]
-        },
-        3: {
-          name: "夏威夷pizza",
-          description: "众多人的默认选择",
-          options: [
-            {
-              size: 9,
-              price: 36
-            },
-            {
-              size: 12,
-              price: 46
-            }
-          ]
-        }
-      }
+      getMenuItems: {}
     };
   },
   computed:{
@@ -167,7 +126,29 @@ export default {
     },
     removeFromBasket(bk){
         this.baskets.splice(this.baskets.indexOf(bk),1)
+    },
+    fetchData(){
+        //使用fetch方法实现
+        // fetch("https://wd5762020806ywbquh.wilddogio.com/menu.json")
+        // .then(res => {
+        //     return res.json()
+        // })
+        // .then(data =>{
+        //     this.getMenuItems = data
+        // })
+
+        //使用axios方法实现
+        // axios.get("menu.json")
+        //     .then(res => this.getMenuItems = res.data)
+
+        //使用配置的Vue原型实现
+        this.http.get("menu.json")
+                .then(res => this.getMenuItems = res.data)
+
     }
+  },
+  created(){
+      this.fetchData()
   }
 };
 </script>

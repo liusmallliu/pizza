@@ -7,7 +7,10 @@ import axios from 'axios'
 Vue.use(VueRouter)
 
 //配置axios的全局默认路径
-axios.defaults.baseURL = 'https://wd7068517581xtlbvg.wilddogio.com/';
+axios.defaults.baseURL = 'https://wd5762020806ywbquh.wilddogio.com/';
+
+//配置Vue原型,下面这样配置后在任何一个页面都可以使用axios，不用每个页面都import导入axios了
+Vue.prototype.http = axios
 
 const router = new VueRouter({
   routes,
