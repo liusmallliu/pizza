@@ -88,7 +88,8 @@ export default {
 
          //使用配置的Vue原型实现
          this.http.post("menu.json",data)
-                .then(res => this.$router.push({name:"menuLink"}))
+                // .then(res => this.$router.push({name:"menuLink"}))
+                .then(res => this.$store.commit("pushToMenuItems",data))      //将数据同步到vuex中
         }
     }
 }

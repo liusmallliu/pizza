@@ -14,7 +14,7 @@
                         <th>删除</th>
                     </tr>
                 </thead>
-                <tbody v-for="item in getMeunItem" :key="item.name">
+                <tbody v-for="item in getMenuItems" :key="item.name">
                     <tr>
                         <td>{{item.name}}</td>
                         <td>
@@ -32,11 +32,24 @@ import NewPizza from './NewPizza.vue';
 export default {
     data(){
         return {
-            getMeunItem : []
+            // getMenuItems : []
         }
     },
     components:{
         'app-new-pizza':NewPizza
+    },
+    computed:{
+        getMenuItems:{
+            get(){
+                //在vuex中获取数据
+                // return this.$store.state.menuItems
+                //通过getters获取数据，避免将数据直接暴露给用户
+                return this.$store.getters.getMenuItems
+            },
+            set(){
+
+            }
+      }
     },
 
     //钩子函数，进入页面之前拿到数据
@@ -51,7 +64,10 @@ export default {
                 data[key].id = key
                 menuArray.push(data[key])
             }
-            this.getMeunItem = menuArray
+            // this.getMenuItems = menuArray
+
+            //同步数据到vuex
+            this.$store.commit("setMenuItems",menuArray)
         })
     },
     methods:{
@@ -63,7 +79,8 @@ export default {
                 }
             })
                 .then(res => res.json())
-                .then(data => this.$router.push({name:"menuLink"}))
+                // .then(data => this.$router.push({name:"menuLink"}))
+                .then(data => { this.$store.commit("removeMenuItems",item) })   //将数据同步到vuex中
                 .catch(err => console.log(err))
         }
     }

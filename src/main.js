@@ -4,6 +4,10 @@ import VueRouter from 'vue-router'
 import {routes} from './routes'
 import axios from 'axios'
 
+//如果store配置的js取名字是index.js，那么这里引入的时候直接写到./store就可以了，
+// 否则要写到js的具体名称
+import {store} from './store/store.js'
+
 Vue.use(VueRouter)
 
 //配置axios的全局默认路径
@@ -29,5 +33,6 @@ const router = new VueRouter({
 new Vue({
   el: '#app',
   router,
+  store,
   render: h => h(App)
 })
